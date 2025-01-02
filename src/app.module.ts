@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entity/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { SmsModule } from './sms/sms.module';
+import { TicketModule } from './ticket/ticket.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { SmsModule } from './sms/sms.module';
       autoLoadEntities: true,
     }),
     SmsModule,
+    TicketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
