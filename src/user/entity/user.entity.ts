@@ -1,4 +1,5 @@
 import { CommonAttribute } from 'src/common';
+import { UserType } from 'src/common/enums/user-type.enum';
 import { Column, Entity, Generated } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -28,7 +29,11 @@ export class User extends CommonAttribute {
   @Column('varchar', { name: 'gender', nullable: true })
   gender?: string;
 
-  @Column('varchar', { name: 'user_type', nullable: false, default: 'user' })
+  @Column('varchar', {
+    name: 'user_type',
+    nullable: false,
+    default: UserType.USER,
+  })
   userType: string;
 
   @Column('boolean', { name: 'isConfirmed', default: false, nullable: false })
