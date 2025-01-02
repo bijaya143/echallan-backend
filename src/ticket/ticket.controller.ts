@@ -12,25 +12,34 @@ import {
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
-import { PaginationInput } from 'src/common';
 import { TicketStatus } from 'src/common/enums/ticket-status.enum';
+import { FilterTicketDto } from './dto/fliter-ticket.dto';
+import { FindOptionsWhere } from 'typeorm';
+import { Ticket } from './entity/ticket.entity';
 
 @Controller('ticket')
 export class TicketController {
   constructor(private readonly ticketService: TicketService) {}
 
   @Get()
-  async getTickets(@Query() paginationInput?: PaginationInput) {
-    const [tickets, count] = await this.ticketService.get(
-      null,
-      null,
-      paginationInput,
-    );
+  async getTickets(@Query() filterInput?: FilterTicketDto) {
+    const { limit, page, licenseNumber, status } = filterInput;
+    const getParams: FindOptionsWhere<Ticket> = {};
+    if (licenseNumber) {
+      getParams.licenseNumber = licenseNumber;
+    }
+    if (status) {
+      getParams.status = status;
+    }
+    const [tickets, count] = await this.ticketService.get(getParams, null, {
+      limit,
+      page,
+    });
     return {
       data: tickets,
       meta: {
-        limit: paginationInput?.limit || 10,
-        page: paginationInput?.page || 1,
+        limit: limit || 10,
+        page: page || 1,
         total: count,
       },
     };
