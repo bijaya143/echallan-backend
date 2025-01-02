@@ -8,6 +8,7 @@ import { User } from './user/entity/user.entity';
 import { ConfigModule } from '@nestjs/config';
 import { SmsModule } from './sms/sms.module';
 import { TicketModule } from './ticket/ticket.module';
+import { DisputeModule } from './dispute/dispute.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { TicketModule } from './ticket/ticket.module';
     }),
     SmsModule,
     TicketModule,
+    DisputeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { TicketStatus } from 'src/common/enums/ticket-status.enum';
 
 export class CreateTicketDto {
   @IsString()
@@ -30,7 +31,7 @@ export class CreateTicketDto {
   issuedBy: string;
 
   @IsOptional()
-  @IsString()
+  @IsEnum(TicketStatus)
   @IsNotEmpty()
-  status?: string;
+  status?: TicketStatus;
 }
