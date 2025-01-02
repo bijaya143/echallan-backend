@@ -11,13 +11,15 @@ import {
   Query,
 } from '@nestjs/common';
 import { DisputeService } from './dispute.service';
-import { PaginationInput } from 'src/common';
 import { DisputeStatus } from 'src/common/enums/dispute-status.enum';
 import { CreateDisputeDto } from './dto/create-dispute.dto';
 import { UpdateDisputeDto } from './dto/update-dispute.dto';
 import { UserService } from 'src/user/user.service';
 import { TicketService } from 'src/ticket/ticket.service';
 import { TicketStatus } from 'src/common/enums/ticket-status.enum';
+import { FilterDisputeDto } from './dto/filter-dispute.dto';
+import { FindOptionsWhere } from 'typeorm';
+import { Dispute } from './entity/dispute.entity';
 
 @Controller('dispute')
 export class DisputeController {
@@ -28,17 +30,24 @@ export class DisputeController {
   ) {}
 
   @Get()
-  async getDisputes(@Query() paginationInput?: PaginationInput) {
-    const [disputes, count] = await this.disputeService.get(
-      null,
-      null,
-      paginationInput,
-    );
+  async getDisputes(@Query() filterInput?: FilterDisputeDto) {
+    const { limit, page, licenseNumber, status } = filterInput;
+    const getParams: FindOptionsWhere<Dispute> = {};
+    if (licenseNumber) {
+      getParams.ticket = { licenseNumber };
+    }
+    if (status) {
+      getParams.status = status;
+    }
+    const [disputes, count] = await this.disputeService.get(getParams, null, {
+      limit,
+      page,
+    });
     return {
       data: disputes,
       meta: {
-        limit: paginationInput?.limit || 10,
-        page: paginationInput?.page || 1,
+        limit: limit || 10,
+        page: page || 1,
         total: count,
       },
     };
