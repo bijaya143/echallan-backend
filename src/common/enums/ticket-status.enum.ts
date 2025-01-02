@@ -2,4 +2,5 @@ export enum TicketStatus {
   PAID = 'PAID',
   PENDING = 'PENDING',
   DISPUTED = 'DISPUTED',
+  PAID_AND_DISPUTED = 'PAID_AND_DISPUTED',
 }
