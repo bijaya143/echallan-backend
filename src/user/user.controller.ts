@@ -7,12 +7,17 @@ import {
   Param,
   Patch,
   Query,
+  Res,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FilterUserDto } from './dto/filter-user.dto';
 import { FindOptionsWhere } from 'typeorm';
 import { User } from './entity/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -58,5 +63,27 @@ export class UserController {
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     return await this.userService.delete(id);
+  }
+
+  @Patch('upload/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadProfileImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id') id: string,
+  ) {
+    await this.updateUser(id, {
+      profileImage: file.path,
+    });
+    return 'Profile Image has been uploaded.';
+  }
+
+  @Get('profile-image/:id')
+  async getProfileImage(@Res() res: Response, @Param('id') id: string) {
+    const user = await this.getUser(id);
+    if (user.profileImage) {
+      const imageName = user.profileImage.split('\\');
+      return res.sendFile(imageName[1], { root: './uploads' });
+    }
+    throw new BadRequestException('Profile Image does not exist.');
   }
 }
