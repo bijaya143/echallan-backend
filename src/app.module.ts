@@ -11,6 +11,7 @@ import { TicketModule } from './ticket/ticket.module';
 import { DisputeModule } from './dispute/dispute.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { RoadTrafficModule } from './road-traffic/road-traffic.module';
 @Module({
   imports: [
     AuthModule,
@@ -33,6 +34,7 @@ import { join } from 'path';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
     }),
+    RoadTrafficModule,
   ],
   controllers: [AppController],
   providers: [AppService],
