@@ -113,10 +113,10 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  trafficServingDistrict: string;
+  trafficServingDistrict?: string;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  trafficPosition: string;
+  trafficPosition?: string;
 }

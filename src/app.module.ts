@@ -9,7 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { SmsModule } from './sms/sms.module';
 import { TicketModule } from './ticket/ticket.module';
 import { DisputeModule } from './dispute/dispute.module';
-
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
     AuthModule,
@@ -29,6 +30,9 @@ import { DisputeModule } from './dispute/dispute.module';
     SmsModule,
     TicketModule,
     DisputeModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
