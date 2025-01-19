@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   async register(params: RegisterDto) {
-    const { phone, password } = params;
+    const { fullName, phone, password } = params;
 
     // Duplicate user
     const duplicateUser = await this.userService.getOne({ phone });
@@ -61,6 +61,7 @@ export class AuthService {
     try {
       const hashedPassword = await this.hashPassword(password);
       const user = await this.userService.create({
+        fullName: fullName,
         phone: phone,
         password: hashedPassword,
       });
@@ -76,7 +77,7 @@ export class AuthService {
         },
         user: {
           id: user.id,
-          email: user.email,
+          // email: user.email,
           phone: user.phone,
         },
       };
@@ -171,7 +172,7 @@ export class AuthService {
         },
         user: {
           id: user.id,
-          email: user.email,
+          // email: user.email,
           phone: user.phone,
         },
       };
