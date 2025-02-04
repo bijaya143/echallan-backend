@@ -62,6 +62,7 @@ export class AuthService {
     if (duplicateUser) throw new BadRequestException('User already exists.');
 
     try {
+      // Hashed Password
       const hashedPassword = await this.hashPassword(password);
       const user = await this.userService.create({
         fullName: fullName,
