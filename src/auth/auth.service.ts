@@ -23,6 +23,7 @@ export class AuthService {
     private readonly smsService: SmsService,
   ) {}
 
+  // Generate Access Token
   async generateAccessToken(user: User) {
     const payload: IPayload = {
       id: user.id,
