@@ -38,6 +38,7 @@ export class AuthService {
     });
   }
 
+  // Generate refresh token
   async generateRefreshToken(user: User) {
     const payload: IPayload = {
       id: user.id,
