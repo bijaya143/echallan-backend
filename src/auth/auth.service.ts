@@ -118,6 +118,7 @@ export class AuthService {
         forgotPasswordOtpExpiresAt: new Date(new Date().getTime() + 25 * 60000),
       });
     } else {
+      // register user verification code
       await this.userService.update(user.id, {
         verificationOtp: verificationCode,
         verificationOtpExpiresAt: new Date(new Date().getTime() + 25 * 60000),
