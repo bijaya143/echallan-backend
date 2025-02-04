@@ -91,6 +91,7 @@ export class AuthService {
   }
 
   public async hashPassword(password: string): Promise<string> {
+    // Salt round 10
     const hash = bcrypt.hashSync(password, 10);
     return hash;
   }
