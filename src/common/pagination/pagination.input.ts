@@ -6,5 +6,5 @@ export class PaginationInput {
   page?: number = 1; // Default page is 1
   @IsOptional()
   @IsNumber()
-  limit?: number = 10;
+  limit?: number = 10; // Default limit is 10
 }
