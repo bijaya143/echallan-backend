@@ -34,7 +34,7 @@ export class DisputeController {
     const { limit, page, licenseNumber, status } = filterInput;
     const getParams: FindOptionsWhere<Dispute> = {};
     if (licenseNumber) {
-      getParams.ticket = { licenseNumber };
+      getParams.ticket = { licenseNumber }; // Filtering with license number
     }
     if (status) {
       getParams.status = status;
