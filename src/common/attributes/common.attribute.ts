@@ -4,7 +4,7 @@ export abstract class CommonAttribute {
   @CreateDateColumn()
   @Column('timestamptz', {
     name: 'created_at',
-    default: () => 'current_timestamp',
+    default: () => 'current_timestamp', // Default current timestamp
   })
   createdAt: Date;
 
