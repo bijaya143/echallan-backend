@@ -121,7 +121,7 @@ export class AuthService {
       // register user verification code
       await this.userService.update(user.id, {
         verificationOtp: verificationCode,
-        verificationOtpExpiresAt: new Date(new Date().getTime() + 25 * 60000),
+        verificationOtpExpiresAt: new Date(new Date().getTime() + 25 * 60000), // otp expires at 25 min
       });
     }
     try {
