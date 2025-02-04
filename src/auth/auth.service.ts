@@ -53,6 +53,7 @@ export class AuthService {
     });
   }
 
+  // Register a user
   async register(params: RegisterDto) {
     const { fullName, phone, password } = params;
 
