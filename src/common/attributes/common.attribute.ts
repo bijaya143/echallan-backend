@@ -11,7 +11,7 @@ export abstract class CommonAttribute {
   @UpdateDateColumn()
   @Column('timestamptz', {
     name: 'updated_at',
-    default: () => 'current_timestamp',
+    default: () => 'current_timestamp', // Default current timestamp
   })
   updatedAt: Date;
 }
