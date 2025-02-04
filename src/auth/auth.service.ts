@@ -112,6 +112,7 @@ export class AuthService {
     // generate token
     const verificationCode = await this.generateVerificationCode();
     if (type === 'forgot_password') {
+      // Forgot password verification code
       await this.userService.update(user.id, {
         forgotPasswordOtp: verificationCode,
         forgotPasswordOtpExpiresAt: new Date(new Date().getTime() + 25 * 60000),
